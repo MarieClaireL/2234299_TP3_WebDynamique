@@ -11,6 +11,9 @@ window.onload = function() {
     canevas=document.getElementById('canevas');
     contexte = canevas.getContext('2d');
 
+    canevas.width = window.innerWidth;
+    canevas.height = window.innerHeight;
+
     construireGrille();
     afficherGrille();
 }
@@ -18,9 +21,9 @@ window.onload = function() {
 function construireGrille() {
 
     // Création du tableau de la grille
-    grille = new Array(canevas.width / DIMENSION_TUILE);
+    grille = new Array(Math.ceil(canevas.width / DIMENSION_TUILE));
     for (let x = 0; x < grille.length; x++) {
-        grille[x] = new Array(canevas.height / DIMENSION_TUILE);
+        grille[x] = new Array(Math.ceil(canevas.height / DIMENSION_TUILE));
     }
 
     // Remplissage de la grille
@@ -30,7 +33,7 @@ function construireGrille() {
             grille[x][y] = compteurTuiles;
             avancerCompteurTuiles();
         }
-        avancerCompteurTuiles();
+        // avancerCompteurTuiles();
     }
 
 }
