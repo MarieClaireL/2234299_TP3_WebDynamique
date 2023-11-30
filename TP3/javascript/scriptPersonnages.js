@@ -1,14 +1,89 @@
+let posX;
+let posY;
+const DIMENSION_CARRE = 50;
+const DEPLACEMENT_CARRE = 5;
 let canevas;
 let contexte;
-
+let touches = {
+    "ArrowUp":false,
+    "ArrowDown":false,
+    "ArrowLeft":false,
+    "ArrowRight":false
+    
+};
 window.onload= function(){
-        
-    canevas = document.getElementById("monCanevas");
-    contexte = canevas.getContext("2d");
 
-    tracerPablo(contexte);
-    tracerTheodore(contexte);
+    window.addEventListener("keydown", toucheAppuyee);
+    window.addEventListener("keyup", toucheRelachee);
+    canevas = document.getElementById("monCanevas");
+    contexte = canevas.getContext('2d');
+    canevas.width = window.innerWidth;
+    canevas.height = window.innerHeight;
+    posX= (canevas.width/2)- (DIMENSION_CARRE/2);
+    posY= (canevas.height/2)- (DIMENSION_CARRE/2);
+    window. requestAnimationFrame(boucleJeu);
+
+    // tracerPablo(contexte);
+    //tracerTheodore(contexte);   
+
 }
+function boucleJeu(timeStamp){
+    calculerPosition();
+    tracerTheodore(contexte);   
+    window.requestAnimationFrame(boucleJeu);
+}
+
+function toucheAppuyee(evenement) {
+    if((evenement.key === "ArrowUp")|| (evenement.key === "ArrowDown")||
+    (evenement.key === "ArrowLeft")||(evenement.key === "ArrowRight")){
+        touches[evenement.key]= true;
+        console.log("a");
+    }
+}
+
+function toucheRelachee(evenement) {
+    if((evenement.key === "ArrowUp")|| (evenement.key === "ArrowDown")||
+    (evenement.key === "ArrowLeft")||(evenement.key === "ArrowRight")){
+        touches[evenement.key]= false;
+    }
+    console.log("b");
+}
+
+function calculerPosition(){
+    
+    if(touches["ArrowUp"]){
+        posY-= DEPLACEMENT_CARRE;
+        console.log("hdswh");
+    }
+    if(touches["ArrowDown"]){
+        posY+= DEPLACEMENT_CARRE;
+    }
+    if(touches["ArrowLeft"]){
+        posX-= DEPLACEMENT_CARRE;
+    }
+    if(touches["ArrowRight"]){
+        posX+= DEPLACEMENT_CARRE;
+    }
+
+   /* if(posX<0){
+        posX=0;
+    }
+
+    if(posX>=1770){
+        posX=1770;
+    }
+
+    if(posY<0){
+        posY=0;
+    }
+    if(posY>=870){
+        posY=870;
+    }*/
+}
+
+
+
+
 
 
 function tracerPablo(contexte)
@@ -284,6 +359,7 @@ function tracerPablo(contexte)
 }
 
 function tracerTheodore(contexte){
+    contexte.clearRect(0,0,canevas.width, canevas.height);
    //fill blanc devant
    contexte.fillStyle= "white";
    contexte.lineWidth=3;
@@ -404,7 +480,7 @@ function tracerTheodore(contexte){
 
 
 
-
+/*
 
 
    //fill blanc derriere
@@ -462,4 +538,259 @@ function tracerTheodore(contexte){
    contexte.lineTo(732, 742);
    contexte.lineTo(718, 742);
    contexte.fill();
+
+
+
+
+
+
+
+
+
+      //fill blanc derriere
+      contexte.fillStyle= "white";
+      contexte.lineWidth=3;
+      contexte.beginPath();
+      contexte.moveTo(800, 700);
+      contexte.lineTo(850, 700);
+      contexte.lineTo(850, 750);
+      contexte.lineTo(800, 750);
+      contexte.lineTo(800, 700);
+      contexte.fill();
+
+      // corps
+   contexte.fillStyle= "beige";
+   contexte.lineWidth=3;
+   contexte.beginPath();
+   contexte.moveTo(806, 704);
+   contexte.lineTo(846, 704);
+   contexte.lineTo(846, 750);
+   contexte.lineTo(806, 750);
+   contexte.lineTo(806, 704);
+   contexte.fill();
+
+
+    //oreille droite
+    contexte.fillStyle= "beige";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(842, 700);
+    contexte.lineTo(850, 700);
+    contexte.lineTo(850, 708);
+    contexte.lineTo(842, 708);
+    contexte.lineTo(842, 700);
+    contexte.fill();
+
+      // queue
+   contexte.fillStyle= "tan";
+   contexte.lineWidth=3;
+   contexte.beginPath();
+   contexte.moveTo(803, 742);
+   contexte.lineTo(817, 742);
+   contexte.lineTo(817, 750);
+   contexte.lineTo(803, 750);
+   contexte.fill();
+
+   
+// museau
+contexte.fillStyle= "white";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(800, 717);
+contexte.lineTo(806, 717);
+contexte.lineTo(806, 727);
+contexte.lineTo(800, 727);
+contexte.fill();
+
+
+// nez
+contexte.fillStyle= "black";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(800, 717);
+contexte.lineTo(802, 717);
+contexte.lineTo(802, 720);
+contexte.lineTo(800, 720);
+contexte.fill();
+
+//oeil gauche
+contexte.fillStyle= "black";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(808, 712);
+contexte.lineTo(814, 712);
+contexte.lineTo(814, 717);
+contexte.lineTo(808, 717);
+contexte.fill();
+
+
+
+
+
+
+
+
+      //fill blanc derriere
+      contexte.fillStyle= "white";
+      contexte.lineWidth=3;
+      contexte.beginPath();
+      contexte.moveTo(900, 700);
+      contexte.lineTo(950, 700);
+      contexte.lineTo(950, 750);
+      contexte.lineTo(900, 750);
+      contexte.lineTo(900, 700);
+      contexte.fill();
+
+      // corps
+   contexte.fillStyle= "beige";
+   contexte.lineWidth=3;
+   contexte.beginPath();
+   contexte.moveTo(904, 704);
+   contexte.lineTo(944, 704);
+   contexte.lineTo(944, 750);
+   contexte.lineTo(904, 750);
+   contexte.lineTo(904, 704);
+   contexte.fill();
+
+
+    //oreille droite
+    contexte.fillStyle= "beige";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(900, 700);
+    contexte.lineTo(900, 700);
+    contexte.lineTo(900, 708);
+    contexte.lineTo(908, 708);
+    contexte.lineTo(908, 700);
+    contexte.fill();
+
+      // patte
+   contexte.fillStyle= "tan";
+   contexte.lineWidth=3;
+   contexte.beginPath();
+   contexte.moveTo(933, 742);
+   contexte.lineTo(947, 742);
+   contexte.lineTo(947, 750);
+   contexte.lineTo(933, 750);
+   contexte.fill();
+
+   
+// museau
+contexte.fillStyle= "white";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(944, 717);
+contexte.lineTo(950, 717);
+contexte.lineTo(950, 727);
+contexte.lineTo(944, 727);
+contexte.fill();
+
+
+// nez
+contexte.fillStyle= "black";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(948, 717);
+contexte.lineTo(950, 717);
+contexte.lineTo(950, 720);
+contexte.lineTo(948, 720);
+contexte.fill();
+
+//oeil droite
+contexte.fillStyle= "black";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(942, 712);
+contexte.lineTo(936, 712);
+contexte.lineTo(936, 717);
+contexte.lineTo(942, 717);
+contexte.fill();
+
+
+
+
+
+
+      // patte
+      contexte.fillStyle= "tan";
+      contexte.lineWidth=3;
+      contexte.beginPath();
+      contexte.moveTo(10, 10);
+      contexte.lineTo(40, 10);
+      contexte.lineTo(40, 50);
+      contexte.lineTo(10, 50);
+      contexte.fill();
+
+      // patte
+      contexte.fillStyle= "white";
+      contexte.lineWidth=3;
+      contexte.beginPath();
+      contexte.moveTo(10, 10);
+      contexte.lineTo(20, 10);
+      contexte.lineTo(20, 20);
+      contexte.lineTo(10, 20);
+      contexte.fill();
+
+      // patte
+      contexte.fillStyle= "red";
+      contexte.lineWidth=3;
+      contexte.beginPath();
+      contexte.moveTo(10, 20);
+      contexte.lineTo(20, 20);
+      contexte.lineTo(20, 30);
+      contexte.lineTo(10, 30);
+      contexte.fill();
+
+      // patte
+      contexte.fillStyle= "white";
+      contexte.lineWidth=3;
+      contexte.beginPath();
+      contexte.moveTo(10, 30);
+      contexte.lineTo(20, 30);
+      contexte.lineTo(20, 40);
+      contexte.lineTo(10, 40);
+      contexte.fill();
+
+      // patte
+      contexte.fillStyle= "red";
+      contexte.lineWidth=3;
+      contexte.beginPath();
+      contexte.moveTo(10, 40);
+      contexte.lineTo(20, 40);
+      contexte.lineTo(20, 50);
+      contexte.lineTo(10, 50);
+      contexte.fill();
+
+// patte
+contexte.fillStyle= "red";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(20, 10);
+contexte.lineTo(30, 10);
+contexte.lineTo(30, 20);
+contexte.lineTo(20, 20);
+contexte.fill();
+
+// patte
+contexte.fillStyle= "white";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(30, 10);
+contexte.lineTo(40, 10);
+contexte.lineTo(40, 20);
+contexte.lineTo(30, 20);
+contexte.fill();
+
+// patte
+contexte.fillStyle= "red";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(30, 20);
+contexte.lineTo(40, 20);
+contexte.lineTo(40, 30);
+contexte.lineTo(30, 30);
+contexte.fill();
+
+
+*/
 }
