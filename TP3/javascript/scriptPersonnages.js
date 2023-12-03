@@ -1,374 +1,200 @@
-let posX;
-let posY;
-const DIMENSION_CARRE = 50;
-const DEPLACEMENT_CARRE = 5;
+let posXT;
+let posYT;
+let posXP;
+let posYP;
+const DIMENSION_CARRET = 50;
+const DEPLACEMENT_CARRET = 5;
+const DIMENSION_CARREP = 50;
+const DEPLACEMENT_CARREP = 5;
 let canevas;
 let contexte;
+let directionT=0;
+let directionP=0;
 let touches = {
     "ArrowUp":false,
     "ArrowDown":false,
     "ArrowLeft":false,
-    "ArrowRight":false
+    "ArrowRight":false,
+    "w":false,
+    "d":false,
+    "s":false,
+    "a":false
     
 };
-window.onload= function(){
-
+window.onload = function(){
+    
     window.addEventListener("keydown", toucheAppuyee);
     window.addEventListener("keyup", toucheRelachee);
-    canevas = document.getElementById("monCanevas");
+    canevas=document.getElementById('monCanevas');
     contexte = canevas.getContext('2d');
     canevas.width = window.innerWidth;
     canevas.height = window.innerHeight;
-    posX= (canevas.width/2)- (DIMENSION_CARRE/2);
-    posY= (canevas.height/2)- (DIMENSION_CARRE/2);
+    posXT= (canevas.width/2)- (DIMENSION_CARRET/2);
+    posYT= (canevas.height/2)- (DIMENSION_CARRET/2);
+    posXP= (canevas.width/2)- (DIMENSION_CARREP/2);
+    posYP= (canevas.height/2)- (DIMENSION_CARREP/2);
     window. requestAnimationFrame(boucleJeu);
-
-    // tracerPablo(contexte);
-    //tracerTheodore(contexte);   
+    posXT= 1300;
+    posYT= 400;
+    tracerTheodoreGauche(contexte);
+    posXP= 900;
+    posYP= 400;
+    tracerPabloGauche(contexte);
 
 }
 function boucleJeu(timeStamp){
     calculerPosition();
-    tracerTheodore(contexte);   
+    if(directionT==1){
+        console.log("Derriere");
+        tracerTheodoreDerriere(contexte);
+    }
+    if(directionT==2){
+        console.log("Droite");
+        tracerTheodoreDroite(contexte);
+    }
+    if(directionT==3){
+        console.log("Face");
+        tracerTheodoreFace(contexte);
+    }
+    if(directionT==4){
+        console.log("Gauche");
+        tracerTheodoreGauche(contexte);
+    }
+    console.log(directionT);
+
+
+
+    if(directionP==1){
+        console.log("Derriere");
+        tracerPabloDerriere(contexte);
+    }
+    if(directionP==2){
+        console.log("Droite");
+        tracerPabloDroite(contexte);
+    }
+    if(directionP==3){
+        console.log("Face");
+        tracerPabloFace(contexte);
+    }
+    if(directionP==4){
+        console.log("Gauche");
+        tracerPabloGauche(contexte);
+    }
+    console.log(directionP);
+
+
     window.requestAnimationFrame(boucleJeu);
 }
 
 function toucheAppuyee(evenement) {
     if((evenement.key === "ArrowUp")|| (evenement.key === "ArrowDown")||
-    (evenement.key === "ArrowLeft")||(evenement.key === "ArrowRight")){
+    (evenement.key === "ArrowLeft")||(evenement.key === "ArrowRight")||
+    (evenement.key === "w")|| (evenement.key === "d")||
+    (evenement.key === "s")||(evenement.key === "a")){
         touches[evenement.key]= true;
         console.log("a");
+        
     }
 }
 
 function toucheRelachee(evenement) {
     if((evenement.key === "ArrowUp")|| (evenement.key === "ArrowDown")||
-    (evenement.key === "ArrowLeft")||(evenement.key === "ArrowRight")){
+    (evenement.key === "ArrowLeft")||(evenement.key === "ArrowRight")||
+    (evenement.key === "w")|| (evenement.key === "d")||
+    (evenement.key === "s")||(evenement.key === "a")){
         touches[evenement.key]= false;
+        console.log("b");
     }
-    console.log("b");
+    
+
+
 }
 
 function calculerPosition(){
     
     if(touches["ArrowUp"]){
-        posY-= DEPLACEMENT_CARRE;
+        posYT-= DEPLACEMENT_CARRET;
         console.log("hdswh");
+        directionT=1;
     }
     if(touches["ArrowDown"]){
-        posY+= DEPLACEMENT_CARRE;
+        posYT+= DEPLACEMENT_CARRET;
+        directionT=3;
     }
     if(touches["ArrowLeft"]){
-        posX-= DEPLACEMENT_CARRE;
+        posXT-= DEPLACEMENT_CARRET;
+        directionT=4;
     }
     if(touches["ArrowRight"]){
-        posX+= DEPLACEMENT_CARRE;
+        posXT+= DEPLACEMENT_CARRET;
+        directionT=2;
     }
 
-   /* if(posX<0){
-        posX=0;
+    if(posXT<0){
+        posXT=0;
     }
 
-    if(posX>=1770){
-        posX=1770;
+    if(posXT>=1770){
+        posXT=1770;
     }
 
-    if(posY<0){
-        posY=0;
+    if(posYT<0){
+        posYT=0;
     }
-    if(posY>=870){
-        posY=870;
-    }*/
+    if(posYT>=870){
+        posYT=870;
+    }
+
+
+
+    if(touches["w"]){
+        posYP-= DEPLACEMENT_CARREP;
+        console.log("dsds");
+        directionP=1;
+    }
+    if(touches["s"]){
+        posYP+= DEPLACEMENT_CARREP;
+        directionP=3;
+    }
+    if(touches["a"]){
+        posXP-= DEPLACEMENT_CARREP;
+        directionP=4;
+    }
+    if(touches["d"]){
+        posXP+= DEPLACEMENT_CARREP;
+        directionP=2;
+    }
+
+    if(posXP<0){
+        posXP=0;
+    }
+
+    if(posXP>=1770){
+        posXP=1770;
+    }
+
+    if(posYP<0){
+        posYP=0;
+    }
+    if(posYP>=870){
+        posYP=870;
+    }
 }
 
 
 
 
-
-
-function tracerPablo(contexte)
-{
-
-    //fond blanc
-    contexte.fillStyle= "white";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(200, 200);
-    contexte.lineTo(250, 200);
-    contexte.lineTo(250, 250);
-    contexte.lineTo(200, 250);
-    contexte.lineTo(200, 200);
-    contexte.fill();
-
-    //haut
-    contexte.fillStyle= "black";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(200, 200);
-    contexte.lineTo(250, 200);
-    contexte.lineTo(250, 210);
-    contexte.lineTo(200, 210);
-    contexte.lineTo(200, 200);
-    contexte.fill();
-
-
-// coté gauche
-    contexte.fillStyle= "black";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(200, 200);
-    contexte.lineTo(210, 200);
-    contexte.lineTo(210, 250);
-    contexte.lineTo(200, 250);
-    contexte.lineTo(200, 200);
-    contexte.fill();
-
-    // coté droit
-    contexte.fillStyle= "black";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(250, 200);
-    contexte.lineTo(240, 200);
-    contexte.lineTo(240, 250);
-    contexte.lineTo(250, 250);
-    contexte.lineTo(250, 250);
-    contexte.fill();
-
-
-    //milieux
-    contexte.fillStyle= "black";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(220, 210);
-    contexte.lineTo(230, 210);
-    contexte.lineTo(230, 218);
-    contexte.lineTo(220, 218);
-    contexte.fill();
-
-    //oeil gauche
-    contexte.fillStyle= "black";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(212, 221);
-    contexte.lineTo(219, 221);
-    contexte.lineTo(219, 226);
-    contexte.lineTo(212, 226);
-    contexte.fill();
-
-    //oeil droite
-    contexte.fillStyle= "black";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(231, 221);
-    contexte.lineTo(238, 221);
-    contexte.lineTo(238, 226);
-    contexte.lineTo(231, 226);
-    contexte.fill();
-
-    //bec
-    contexte.fillStyle= "yellow";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(220, 228);
-    contexte.lineTo(230, 228);
-    contexte.lineTo(230, 235);
-    contexte.lineTo(220, 235);
-    contexte.fill();
-
-    //patte gauche
-    contexte.fillStyle= "orange";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(202, 242);
-    contexte.lineTo(215, 242);
-    contexte.lineTo(215, 250);
-    contexte.lineTo(202, 250);
-    contexte.fill();
-
-     //patte droite
-     contexte.fillStyle= "orange";
-     contexte.lineWidth=3;
-     contexte.beginPath();
-     contexte.moveTo(248, 242);
-     contexte.lineTo(235, 242);
-     contexte.lineTo(235, 250);
-     contexte.lineTo(248, 250);
-     contexte.fill();
-
-
-
-
-
-// corps derriere
-     contexte.fillStyle= "black";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(300, 300);
-    contexte.lineTo(350, 300);
-    contexte.lineTo(350, 350);
-    contexte.lineTo(300, 350);
-    contexte.lineTo(300, 300);
-    contexte.fill();
-
-    // queue
-    contexte.fillStyle= "white";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(316, 342);
-    contexte.lineTo(334, 342);
-    contexte.lineTo(334, 350);
-    contexte.lineTo(316, 350);
-    contexte.fill();
-
-
-
-//fill blanc profil gauche
-    contexte.fillStyle= "white";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(400, 400);
-    contexte.lineTo(450, 400);
-    contexte.lineTo(450, 450);
-    contexte.lineTo(400, 450);
-    contexte.lineTo(400, 400);
-    contexte.fill();
-
-    //dos
-    contexte.fillStyle= "black";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(450, 400);
-    contexte.lineTo(415, 400);
-    contexte.lineTo(415, 450);
-    contexte.lineTo(450, 450);
-    contexte.lineTo(450, 400);
-    contexte.fill();
-
-    //tête
-    contexte.fillStyle= "black";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(405, 400);
-    contexte.lineTo(420, 400);
-    contexte.lineTo(420, 410);
-    contexte.lineTo(405, 410);
-    contexte.lineTo(405, 400);
-    contexte.fill();
-
-
-     //oeil 7 par 6
-     contexte.fillStyle= "black";
-     contexte.lineWidth=3;
-     contexte.beginPath();
-     contexte.moveTo(405, 416);
-     contexte.lineTo(412, 416);
-     contexte.lineTo(412, 421);
-     contexte.lineTo(405, 421);
-     contexte.fill();
-
-     //patte gauche
-    contexte.fillStyle= "orange";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(402, 442);
-    contexte.lineTo(412, 442);
-    contexte.lineTo(412, 450);
-    contexte.lineTo(402, 450);
-    contexte.fill();
-
-    //bec
-    contexte.fillStyle= "yellow";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(400, 423);
-    contexte.lineTo(405, 423);
-    contexte.lineTo(405, 431);
-    contexte.lineTo(400, 431);
-    contexte.fill();
-
-
-
-
-
-
-
-
-    //fill blanc profil droite
-    contexte.fillStyle= "white";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(500, 500);
-    contexte.lineTo(550, 500);
-    contexte.lineTo(550, 550);
-    contexte.lineTo(500, 550);
-    contexte.lineTo(500, 500);
-    contexte.fill();
-
-    //dos
-    contexte.fillStyle= "black";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(500, 500);
-    contexte.lineTo(535, 500);
-    contexte.lineTo(535, 550);
-    contexte.lineTo(500, 550);
-    contexte.lineTo(500, 500);
-    contexte.fill();
-
-    //tête
-    contexte.fillStyle= "black";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(545, 500);
-    contexte.lineTo(530, 500);
-    contexte.lineTo(530, 510);
-    contexte.lineTo(545, 510);
-    contexte.lineTo(545, 500);
-    contexte.fill();
-
-
-     //oeil 7 par 6
-     contexte.fillStyle= "black";
-     contexte.lineWidth=3;
-     contexte.beginPath();
-     contexte.moveTo(545, 516);
-     contexte.lineTo(538, 516);
-     contexte.lineTo(538, 521);
-     contexte.lineTo(545, 521);
-     contexte.fill();
-
-     //patte gauche
-    contexte.fillStyle= "orange";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(548, 542);
-    contexte.lineTo(538, 542);
-    contexte.lineTo(538, 550);
-    contexte.lineTo(548, 550);
-    contexte.fill();
-
-    //bec
-    contexte.fillStyle= "yellow";
-    contexte.lineWidth=3;
-    contexte.beginPath();
-    contexte.moveTo(550, 523);
-    contexte.lineTo(545, 523);
-    contexte.lineTo(545, 531);
-    contexte.lineTo(550, 531);
-    contexte.fill();
-}
-
-function tracerTheodore(contexte){
-    contexte.clearRect(0,0,canevas.width, canevas.height);
+function tracerTheodoreFace(contexte){
+    contexte.clearRect(posXT-50,posYT-50,200, 200);
    //fill blanc devant
    contexte.fillStyle= "white";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(600, 600);
-   contexte.lineTo(650, 600);
-   contexte.lineTo(650, 650);
-   contexte.lineTo(600, 650);
-   contexte.lineTo(600, 600);
+   contexte.moveTo(posXT, posYT);
+   contexte.lineTo(posXT+50, posYT);
+   contexte.lineTo(posXT+50, posYT+50);
+   contexte.lineTo(posXT, posYT+50);
+   contexte.lineTo(posXT, posYT);
    contexte.fill();
 
 
@@ -376,11 +202,11 @@ function tracerTheodore(contexte){
    contexte.fillStyle= "beige";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(604, 604);
-   contexte.lineTo(646, 604);
-   contexte.lineTo(646, 650);
-   contexte.lineTo(604, 650);
-   contexte.lineTo(604, 604);
+   contexte.moveTo(posXT+4, posYT+4);
+   contexte.lineTo(posXT+46, posYT+4);
+   contexte.lineTo(posXT+46, posYT+50);
+   contexte.lineTo(posXT+4, posYT+50);
+   contexte.lineTo(posXT+4, posYT+4);
    contexte.fill();
 
 
@@ -388,11 +214,11 @@ function tracerTheodore(contexte){
    contexte.fillStyle= "beige";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(600, 600);
-   contexte.lineTo(608, 600);
-   contexte.lineTo(608, 608);
-   contexte.lineTo(600, 608);
-   contexte.lineTo(600, 600);
+   contexte.moveTo(posXT, posYT);
+   contexte.lineTo(posXT+8, posYT);
+   contexte.lineTo(posXT+8, posYT+8);
+   contexte.lineTo(posXT, posYT+8);
+   contexte.lineTo(posXT, posYT);
    contexte.fill();
 
 
@@ -400,21 +226,21 @@ function tracerTheodore(contexte){
    contexte.fillStyle= "beige";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(642, 600);
-   contexte.lineTo(650, 600);
-   contexte.lineTo(650, 608);
-   contexte.lineTo(642, 608);
-   contexte.lineTo(642, 600);
+   contexte.moveTo(posXT+42, posYT);
+   contexte.lineTo(posXT+50, posYT);
+   contexte.lineTo(posXT+50, posYT+8);
+   contexte.lineTo(posXT+42, posYT+8);
+   contexte.lineTo(posXT+42, posYT);
    contexte.fill();
 
    // ventre
    contexte.fillStyle= "white";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(613, 632);
-   contexte.lineTo(637, 632);
-   contexte.lineTo(637, 650);
-   contexte.lineTo(613, 650);
+   contexte.moveTo(posXT+13, posYT+32);
+   contexte.lineTo(posXT+37, posYT+32);
+   contexte.lineTo(posXT+37, posYT+50);
+   contexte.lineTo(posXT+13, posYT+50);
    contexte.fill();
 
 
@@ -422,76 +248,154 @@ function tracerTheodore(contexte){
    contexte.fillStyle= "white";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(617, 620);
-   contexte.lineTo(633, 620);
-   contexte.lineTo(633, 628);
-   contexte.lineTo(617, 628);
+   contexte.moveTo(posXT+17, posYT+20);
+   contexte.lineTo(posXT+33, posYT+20);
+   contexte.lineTo(posXT+33, posYT+28);
+   contexte.lineTo(posXT+17, posYT+28);
    contexte.fill();
 
    // nez
    contexte.fillStyle= "black";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(622, 620);
-   contexte.lineTo(628, 620);
-   contexte.lineTo(628, 624);
-   contexte.lineTo(622, 624);
+   contexte.moveTo(posXT+22, posYT+20);
+   contexte.lineTo(posXT+28, posYT+20);
+   contexte.lineTo(posXT+28, posYT+24);
+   contexte.lineTo(posXT+22, posYT+24);
    contexte.fill();
 
    //oeil gauche
    contexte.fillStyle= "black";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(612, 612);
-   contexte.lineTo(618, 612);
-   contexte.lineTo(618, 617);
-   contexte.lineTo(612, 617);
+   contexte.moveTo(posXT+12, posYT+12);
+   contexte.lineTo(posXT+18, posYT+12);
+   contexte.lineTo(posXT+18, posYT+17);
+   contexte.lineTo(posXT+12, posYT+17);
    contexte.fill();
 
    //oeil droite
    contexte.fillStyle= "black";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(632, 612);
-   contexte.lineTo(638, 612);
-   contexte.lineTo(638, 617);
-   contexte.lineTo(632, 617);
+   contexte.moveTo(posXT+32, posYT+12);
+   contexte.lineTo(posXT+38, posYT+12);
+   contexte.lineTo(posXT+38, posYT+17);
+   contexte.lineTo(posXT+32, posYT+17);
    contexte.fill();
 
 // patte gauche
    contexte.fillStyle= "tan";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(605, 642);
-   contexte.lineTo(619, 642);
-   contexte.lineTo(619, 650);
-   contexte.lineTo(605, 650);
+   contexte.moveTo(posXT+5, posYT+42);
+   contexte.lineTo(posXT+19, posYT+42);
+   contexte.lineTo(posXT+19, posYT+50);
+   contexte.lineTo(posXT+5, posYT+50);
    contexte.fill();
 
    // patte gauche
    contexte.fillStyle= "tan";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(645, 642);
-   contexte.lineTo(631, 642);
-   contexte.lineTo(631, 650);
-   contexte.lineTo(645, 650);
+   contexte.moveTo(posXT+45, posYT+42);
+   contexte.lineTo(posXT+31, posYT+42);
+   contexte.lineTo(posXT+31, posYT+50);
+   contexte.lineTo(posXT+45, posYT+50);
    contexte.fill();
 
+}
 
+function tracerTheodoreDroite(contexte){
+  contexte.clearRect(posXT-50,posYT-50,200, 200);
 
-/*
+    //droite
+    
+      //fill blanc derriere
+      contexte.fillStyle= "white";
+      contexte.lineWidth=3;
+      contexte.beginPath();
+      contexte.moveTo(posXT, posYT);
+      contexte.lineTo(posXT+50, posYT);
+      contexte.lineTo(posXT+50, posYT+50);
+      contexte.lineTo(posXT, posYT+50);
+      contexte.lineTo(posXT, posYT);
+      contexte.fill();
 
+        // corps
+        contexte.fillStyle= "beige";
+        contexte.lineWidth=3;
+        contexte.beginPath();
+        contexte.moveTo(posXT+4, posYT+4);
+        contexte.lineTo(posXT+44, posYT+4);
+        contexte.lineTo(posXT+44, posYT+50);
+        contexte.lineTo(posXT+4, posYT+50);
+        contexte.lineTo(posXT+4, posYT+4);
+        contexte.fill();
 
-   //fill blanc derriere
+        //oreille
+        contexte.fillStyle= "beige";
+        contexte.lineWidth=3;
+        contexte.beginPath();
+        contexte.moveTo(posXT, posYT);
+        contexte.lineTo(posXT, posYT);
+        contexte.lineTo(posXT, posYT+8);
+        contexte.lineTo(posXT+8, posYT+8);
+        contexte.lineTo(posXT+8, posYT);
+        contexte.fill();
+
+         // patte
+        contexte.fillStyle= "tan";
+        contexte.lineWidth=3;
+        contexte.beginPath();
+        contexte.moveTo(posXT+33, posYT+42);
+        contexte.lineTo(posXT+47, posYT+42);
+        contexte.lineTo(posXT+47, posYT+50);
+        contexte.lineTo(posXT+33, posYT+50);
+        contexte.fill();
+
+        // museau
+        contexte.fillStyle= "white";
+        contexte.lineWidth=3;
+        contexte.beginPath();
+        contexte.moveTo(posXT+44, posYT+17);
+        contexte.lineTo(posXT+50, posYT+17);
+        contexte.lineTo(posXT+50, posYT+27);
+        contexte.lineTo(posXT+44, posYT+27);
+        contexte.fill();
+
+        // nez
+        contexte.fillStyle= "black";
+        contexte.lineWidth=3;
+        contexte.beginPath();
+        contexte.moveTo(posXT+48, posYT+17);
+        contexte.lineTo(posXT+50, posYT+17);
+        contexte.lineTo(posXT+50, posYT+20);
+        contexte.lineTo(posXT+48, posYT+20);
+        contexte.fill();
+
+        //oeil
+        contexte.fillStyle= "black";
+        contexte.lineWidth=3;
+        contexte.beginPath();
+        contexte.moveTo(posXT+42, posYT+12);
+        contexte.lineTo(posXT+36, posYT+12);
+        contexte.lineTo(posXT+36, posYT+17);
+        contexte.lineTo(posXT+42, posYT+17);
+        contexte.fill();
+}
+
+function tracerTheodoreDerriere(contexte){
+    contexte.clearRect(posXT-50,posYT+50,200, 200);
+    //fill blanc derriere
    contexte.fillStyle= "white";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(700, 700);
-   contexte.lineTo(750, 700);
-   contexte.lineTo(750, 750);
-   contexte.lineTo(700, 750);
-   contexte.lineTo(700, 700);
+   contexte.moveTo(posXT, posYT);
+   contexte.lineTo(posXT+50, posYT);
+   contexte.lineTo(posXT+50, posYT+50);
+   contexte.lineTo(posXT, posYT+50);
+   contexte.lineTo(posXT, posYT);
    contexte.fill();
 
 
@@ -499,11 +403,11 @@ function tracerTheodore(contexte){
    contexte.fillStyle= "beige";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(704, 704);
-   contexte.lineTo(746, 704);
-   contexte.lineTo(746, 750);
-   contexte.lineTo(704, 750);
-   contexte.lineTo(704, 704);
+   contexte.moveTo(posXT+4, posYT+4);
+   contexte.lineTo(posXT+46, posYT+4);
+   contexte.lineTo(posXT+46, posYT+50);
+   contexte.lineTo(posXT+4, posYT+50);
+   contexte.lineTo(posXT+4, posYT+4);
    contexte.fill();
 
 
@@ -511,206 +415,121 @@ function tracerTheodore(contexte){
    contexte.fillStyle= "beige";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(700, 700);
-   contexte.lineTo(708, 700);
-   contexte.lineTo(708, 708);
-   contexte.lineTo(700, 708);
-   contexte.lineTo(700, 700);
+   contexte.moveTo(posXT, posYT);
+   contexte.lineTo(posXT+8, posYT);
+   contexte.lineTo(posXT+8, posYT+8);
+   contexte.lineTo(posXT, posYT+8);
+   contexte.lineTo(posXT, posYT);
    contexte.fill();
 
     //oreille droite
     contexte.fillStyle= "beige";
     contexte.lineWidth=3;
     contexte.beginPath();
-    contexte.moveTo(742, 700);
-    contexte.lineTo(750, 700);
-    contexte.lineTo(750, 708);
-    contexte.lineTo(742, 708);
-    contexte.lineTo(742, 700);
+    contexte.moveTo(posXT+42, posYT);
+    contexte.lineTo(posXT+50, posYT);
+    contexte.lineTo(posXT+50, posYT+8);
+    contexte.lineTo(posXT+42, posYT+8);
+    contexte.lineTo(posXT+42, posYT);
     contexte.fill();
 
       // queue
    contexte.fillStyle= "white";
    contexte.lineWidth=3;
    contexte.beginPath();
-   contexte.moveTo(718, 732);
-   contexte.lineTo(732, 732);
-   contexte.lineTo(732, 742);
-   contexte.lineTo(718, 742);
+   contexte.moveTo(posXT+18, posYT+32);
+   contexte.lineTo(posXT+32, posYT+32);
+   contexte.lineTo(posXT+32, posYT+42);
+   contexte.lineTo(posXT+18, posYT+42);
    contexte.fill();
 
+}
 
-
-
-
-
-
-
-
-      //fill blanc derriere
-      contexte.fillStyle= "white";
-      contexte.lineWidth=3;
-      contexte.beginPath();
-      contexte.moveTo(800, 700);
-      contexte.lineTo(850, 700);
-      contexte.lineTo(850, 750);
-      contexte.lineTo(800, 750);
-      contexte.lineTo(800, 700);
-      contexte.fill();
-
-      // corps
-   contexte.fillStyle= "beige";
-   contexte.lineWidth=3;
-   contexte.beginPath();
-   contexte.moveTo(806, 704);
-   contexte.lineTo(846, 704);
-   contexte.lineTo(846, 750);
-   contexte.lineTo(806, 750);
-   contexte.lineTo(806, 704);
-   contexte.fill();
-
-
-    //oreille droite
-    contexte.fillStyle= "beige";
+function tracerTheodoreGauche(contexte){
+    contexte.clearRect(posXT+50,posYT-50,200, 200);
+console.log("AAAA");
+          //fill blanc derriere
+          contexte.fillStyle= "white";
+          contexte.lineWidth=3;
+          contexte.beginPath();
+          contexte.moveTo(posXT, posYT);
+          contexte.lineTo(posXT+50, posYT);
+          contexte.lineTo(posXT+50, posYT+50);
+          contexte.lineTo(posXT, posYT+50);
+          contexte.lineTo(posXT, posYT);
+          contexte.fill();
+    
+          // corps
+       contexte.fillStyle= "beige";
+       contexte.lineWidth=3;
+       contexte.beginPath();
+       contexte.moveTo(posXT+6, posYT+4);
+       contexte.lineTo(posXT+46, posYT+4);
+       contexte.lineTo(posXT+46, posYT+50);
+       contexte.lineTo(posXT+6, posYT+50);
+       contexte.lineTo(posXT+6, posYT+4);
+       contexte.fill();
+    
+    
+        //oreille droite
+        contexte.fillStyle= "beige";
+        contexte.lineWidth=3;
+        contexte.beginPath();
+        contexte.moveTo(posXT+42, posYT);
+        contexte.lineTo(posXT+50, posYT);
+        contexte.lineTo(posXT+50, posYT+8);
+        contexte.lineTo(posXT+42, posYT+8);
+        contexte.lineTo(posXT+42, posYT);
+        contexte.fill();
+    
+          // queue
+       contexte.fillStyle= "tan";
+       contexte.lineWidth=3;
+       contexte.beginPath();
+       contexte.moveTo(posXT+3, posYT+42);
+       contexte.lineTo(posXT+17, posYT+42);
+       contexte.lineTo(posXT+17, posYT+50);
+       contexte.lineTo(posXT+3, posYT+50);
+       contexte.fill();
+    
+       
+    // museau
+    contexte.fillStyle= "white";
     contexte.lineWidth=3;
     contexte.beginPath();
-    contexte.moveTo(842, 700);
-    contexte.lineTo(850, 700);
-    contexte.lineTo(850, 708);
-    contexte.lineTo(842, 708);
-    contexte.lineTo(842, 700);
+    contexte.moveTo(posXT, posYT+17);
+    contexte.lineTo(posXT+6, posYT+17);
+    contexte.lineTo(posXT+6, posYT+27);
+    contexte.lineTo(posXT, posYT+27);
     contexte.fill();
-
-      // queue
-   contexte.fillStyle= "tan";
-   contexte.lineWidth=3;
-   contexte.beginPath();
-   contexte.moveTo(803, 742);
-   contexte.lineTo(817, 742);
-   contexte.lineTo(817, 750);
-   contexte.lineTo(803, 750);
-   contexte.fill();
-
-   
-// museau
-contexte.fillStyle= "white";
-contexte.lineWidth=3;
-contexte.beginPath();
-contexte.moveTo(800, 717);
-contexte.lineTo(806, 717);
-contexte.lineTo(806, 727);
-contexte.lineTo(800, 727);
-contexte.fill();
-
-
-// nez
-contexte.fillStyle= "black";
-contexte.lineWidth=3;
-contexte.beginPath();
-contexte.moveTo(800, 717);
-contexte.lineTo(802, 717);
-contexte.lineTo(802, 720);
-contexte.lineTo(800, 720);
-contexte.fill();
-
-//oeil gauche
-contexte.fillStyle= "black";
-contexte.lineWidth=3;
-contexte.beginPath();
-contexte.moveTo(808, 712);
-contexte.lineTo(814, 712);
-contexte.lineTo(814, 717);
-contexte.lineTo(808, 717);
-contexte.fill();
-
-
-
-
-
-
-
-
-      //fill blanc derriere
-      contexte.fillStyle= "white";
-      contexte.lineWidth=3;
-      contexte.beginPath();
-      contexte.moveTo(900, 700);
-      contexte.lineTo(950, 700);
-      contexte.lineTo(950, 750);
-      contexte.lineTo(900, 750);
-      contexte.lineTo(900, 700);
-      contexte.fill();
-
-      // corps
-   contexte.fillStyle= "beige";
-   contexte.lineWidth=3;
-   contexte.beginPath();
-   contexte.moveTo(904, 704);
-   contexte.lineTo(944, 704);
-   contexte.lineTo(944, 750);
-   contexte.lineTo(904, 750);
-   contexte.lineTo(904, 704);
-   contexte.fill();
-
-
-    //oreille droite
-    contexte.fillStyle= "beige";
+    
+    
+    // nez
+    contexte.fillStyle= "black";
     contexte.lineWidth=3;
     contexte.beginPath();
-    contexte.moveTo(900, 700);
-    contexte.lineTo(900, 700);
-    contexte.lineTo(900, 708);
-    contexte.lineTo(908, 708);
-    contexte.lineTo(908, 700);
+    contexte.moveTo(posXT, posYT+17);
+    contexte.lineTo(posXT+2, posYT+17);
+    contexte.lineTo(posXT+2, posYT+20);
+    contexte.lineTo(posXT, posYT+20);
     contexte.fill();
-
-      // patte
-   contexte.fillStyle= "tan";
-   contexte.lineWidth=3;
-   contexte.beginPath();
-   contexte.moveTo(933, 742);
-   contexte.lineTo(947, 742);
-   contexte.lineTo(947, 750);
-   contexte.lineTo(933, 750);
-   contexte.fill();
-
-   
-// museau
-contexte.fillStyle= "white";
-contexte.lineWidth=3;
-contexte.beginPath();
-contexte.moveTo(944, 717);
-contexte.lineTo(950, 717);
-contexte.lineTo(950, 727);
-contexte.lineTo(944, 727);
-contexte.fill();
+    
+    //oeil gauche
+    contexte.fillStyle= "black";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(posXT+8, posYT+12);
+    contexte.lineTo(posXT+14, posYT+12);
+    contexte.lineTo(posXT+14, posYT+17);
+    contexte.lineTo(posXT+8, posYT+17);
+    contexte.fill();
+    
+}
 
 
-// nez
-contexte.fillStyle= "black";
-contexte.lineWidth=3;
-contexte.beginPath();
-contexte.moveTo(948, 717);
-contexte.lineTo(950, 717);
-contexte.lineTo(950, 720);
-contexte.lineTo(948, 720);
-contexte.fill();
-
-//oeil droite
-contexte.fillStyle= "black";
-contexte.lineWidth=3;
-contexte.beginPath();
-contexte.moveTo(942, 712);
-contexte.lineTo(936, 712);
-contexte.lineTo(936, 717);
-contexte.lineTo(942, 717);
-contexte.fill();
-
-
-
-
-
-
+function tracerCannes(contexte){
+    contexte.clearRect(0,0,canevas.width, canevas.height);
+// canne
       // patte
       contexte.fillStyle= "tan";
       contexte.lineWidth=3;
@@ -792,5 +611,273 @@ contexte.lineTo(30, 30);
 contexte.fill();
 
 
-*/
+
+}
+
+function tracerPabloFace(contexte){
+    contexte.clearRect(posXP-50,posYP-50,200, 200);
+//fond blanc
+contexte.fillStyle= "white";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(posXP, posYP);
+contexte.lineTo(posXP+50, posYP);
+contexte.lineTo(posXP+50, posYP+50);
+contexte.lineTo(posXP, posYP+50);
+contexte.lineTo(posXP, posYP);
+contexte.fill();
+
+//haut
+contexte.fillStyle= "black";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(posXP, posYP);
+contexte.lineTo(posXP+50, posYP);
+contexte.lineTo(posXP+50, posYP+10);
+contexte.lineTo(posXP, posYP+10);
+contexte.lineTo(posXP, posYP);
+contexte.fill();
+
+
+// coté gauche
+contexte.fillStyle= "black";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(posXP, posYP);
+contexte.lineTo(posXP+10, posYP);
+contexte.lineTo(posXP+10, posYP+50);
+contexte.lineTo(posXP, posYP+50);
+contexte.lineTo(posXP, posYP);
+contexte.fill();
+
+// coté droit
+contexte.fillStyle= "black";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(posXP+50, posYP);
+contexte.lineTo(posXP+40, posYP);
+contexte.lineTo(posXP+40, posYP+50);
+contexte.lineTo(posXP+50, posYP+50);
+contexte.lineTo(posXP+50, posYP+50);
+contexte.fill();
+
+
+//milieux
+contexte.fillStyle= "black";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(posXP+20, posYP+10);
+contexte.lineTo(posXP+30, posYP+10);
+contexte.lineTo(posXP+30, posYP+18);
+contexte.lineTo(posXP+20, posYP+18);
+contexte.fill();
+
+//oeil gauche
+contexte.fillStyle= "black";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(posXP+12, posYP+21);
+contexte.lineTo(posXP+19, posYP+21);
+contexte.lineTo(posXP+19, posYP+26);
+contexte.lineTo(posXP+12, posYP+26);
+contexte.fill();
+
+//oeil droite
+contexte.fillStyle= "black";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(posXP+31, posYP+21);
+contexte.lineTo(posXP+38, posYP+21);
+contexte.lineTo(posXP+38, posYP+26);
+contexte.lineTo(posXP+31, posYP+26);
+contexte.fill();
+
+//bec
+contexte.fillStyle= "yellow";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(posXP+20, posYP+28);
+contexte.lineTo(posXP+30, posYP+28);
+contexte.lineTo(posXP+30, posYP+35);
+contexte.lineTo(posXP+20, posYP+35);
+contexte.fill();
+
+//patte gauche
+contexte.fillStyle= "orange";
+contexte.lineWidth=3;
+contexte.beginPath();
+contexte.moveTo(posXP+2, posYP+42);
+contexte.lineTo(posXP+15, posYP+42);
+contexte.lineTo(posXP+15, posYP+50);
+contexte.lineTo(posXP+2, posYP+50);
+contexte.fill();
+
+ //patte droite
+ contexte.fillStyle= "orange";
+ contexte.lineWidth=3;
+ contexte.beginPath();
+ contexte.moveTo(posXP+48, posYP+42);
+ contexte.lineTo(posXP+35, posYP+42);
+ contexte.lineTo(posXP+35, posYP+50);
+ contexte.lineTo(posXP+48, posYP+50);
+ contexte.fill();
+
+}
+
+function tracerPabloDerriere(contexte){
+    contexte.clearRect(posXP-50,posYP+50,200, 200);
+    // corps derriere
+    contexte.fillStyle= "black";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(posXP, posYP);
+    contexte.lineTo(posXP+50, posYP);
+    contexte.lineTo(posXP+50, posYP+50);
+    contexte.lineTo(posXP, posYP+50);
+    contexte.lineTo(posXP, posYP);
+    contexte.fill();
+
+    // queue
+    contexte.fillStyle= "white";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(posXP+16, posYP+42);
+    contexte.lineTo(posXP+34, posYP+42);
+    contexte.lineTo(posXP+34, posYP+50);
+    contexte.lineTo(posXP+16, posYP+50);
+    contexte.fill();
+}
+
+function tracerPabloDroite(contexte){
+    contexte.clearRect(posXP-50,posYP-50,200, 200);
+    //fill blanc profil droite
+    contexte.fillStyle= "white";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(posXP, posYP);
+    contexte.lineTo(posXP+50, posYP);
+    contexte.lineTo(posXP+50, posYP+50);
+    contexte.lineTo(posXP, posYP+50);
+    contexte.lineTo(posXP, posYP);
+    contexte.fill();
+
+    //dos
+    contexte.fillStyle= "black";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(posXP, posYP);
+    contexte.lineTo(posXP+35, posYP);
+    contexte.lineTo(posXP+35, posYP+50);
+    contexte.lineTo(posXP, posYP+50);
+    contexte.lineTo(posXP, posYP);
+    contexte.fill();
+
+    //tête
+    contexte.fillStyle= "black";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(posXP+45, posYP);
+    contexte.lineTo(posXP+30, posYP);
+    contexte.lineTo(posXP+30, posYP+10);
+    contexte.lineTo(posXP+45, posYP+10);
+    contexte.lineTo(posXP+45, posYP);
+    contexte.fill();
+
+
+     //oeil 7 par 6
+     contexte.fillStyle= "black";
+     contexte.lineWidth=3;
+     contexte.beginPath();
+     contexte.moveTo(posXP+45, posYP+16);
+     contexte.lineTo(posXP+38, posYP+16);
+     contexte.lineTo(posXP+38, posYP+21);
+     contexte.lineTo(posXP+45, posYP+21);
+     contexte.fill();
+
+     //patte gauche
+    contexte.fillStyle= "orange";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(posXP+48, posYP+42);
+    contexte.lineTo(posXP+38, posYP+42);
+    contexte.lineTo(posXP+38, posYP+50);
+    contexte.lineTo(posXP+48, posYP+50);
+    contexte.fill();
+
+    //bec
+    contexte.fillStyle= "yellow";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(posXP+50, posYP+23);
+    contexte.lineTo(posXP+45, posYP+23);
+    contexte.lineTo(posXP+45, posYP+31);
+    contexte.lineTo(posXP+50, posYP+31);
+    contexte.fill();
+}
+
+function tracerPabloGauche(contexte){
+    contexte.clearRect(posXP+50,posYP-50,200, 200);
+     //fill blanc profil gauche
+    contexte.fillStyle= "white";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(posXP, posYP);
+    contexte.lineTo(posXP+50, posYP);
+    contexte.lineTo(posXP+50, posYP+50);
+    contexte.lineTo(posXP, posYP+50);
+    contexte.lineTo(posXP, posYP);
+    contexte.fill();
+
+   ///dos
+    contexte.fillStyle= "black";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(posXP+50, posYP);
+    contexte.lineTo(posXP+15, posYP);
+    contexte.lineTo(posXP+15, posYP+50);
+    contexte.lineTo(posXP+50, posYP+50);
+    contexte.lineTo(posXP+50, posYP);
+    contexte.fill();
+
+    //tête
+    contexte.fillStyle= "black";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(posXP+5, posYP);
+    contexte.lineTo(posXP+20, posYP);
+    contexte.lineTo(posXP+20, posYP+10);
+    contexte.lineTo(posXP+5, posYP+10);
+    contexte.lineTo(posXP+5, posYP);
+    contexte.fill();
+
+
+     //oeil 7 par 6
+     contexte.fillStyle= "black";
+     contexte.lineWidth=3;
+     contexte.beginPath();
+     contexte.moveTo(posXP+5, posYP+16);
+     contexte.lineTo(posXP+12, posYP+16);
+     contexte.lineTo(posXP+12, posYP+21);
+     contexte.lineTo(posXP+5, posYP+21);
+     contexte.fill();
+
+     //patte gauche
+    contexte.fillStyle= "orange";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(posXP+2, posYP+42);
+    contexte.lineTo(posXP+12, posYP+42);
+    contexte.lineTo(posXP+12, posYP+50);
+    contexte.lineTo(posXP+2, posYP+50);
+    contexte.fill();
+
+    //bec
+    contexte.fillStyle= "yellow";
+    contexte.lineWidth=3;
+    contexte.beginPath();
+    contexte.moveTo(posXP, posYP+23);
+    contexte.lineTo(posXP+5, posYP+23);
+    contexte.lineTo(posXP+5, posYP+31);
+    contexte.lineTo(posXP, posYP+31);
+    contexte.fill();
 }
