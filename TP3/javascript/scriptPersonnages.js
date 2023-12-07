@@ -44,6 +44,8 @@ window.onload = function(){
 }
 function boucleJeu(timeStamp){
     calculerPosition();
+   /* contexte.fillstyle= "red";
+    contexte.fillRect(0,0, canevas.width,canevas.height );*/
     if(directionT==1){
         console.log("Derriere");
         tracerTheodoreDerriere(contexte);
@@ -185,7 +187,7 @@ function calculerPosition(){
 
 
 function tracerTheodoreFace(contexte){
-    contexte.clearRect(posXT-50,posYT-50,200, 200);
+
    //fill blanc devant
    contexte.fillStyle= "white";
    contexte.lineWidth=3;
@@ -307,7 +309,7 @@ function tracerTheodoreFace(contexte){
 }
 
 function tracerTheodoreDroite(contexte){
-  contexte.clearRect(posXT-50,posYT-50,200, 200);
+
 
     //droite
     
@@ -386,7 +388,7 @@ function tracerTheodoreDroite(contexte){
 }
 
 function tracerTheodoreDerriere(contexte){
-    contexte.clearRect(posXT-50,posYT+50,200, 200);
+
     //fill blanc derriere
    contexte.fillStyle= "white";
    contexte.lineWidth=3;
@@ -446,7 +448,7 @@ function tracerTheodoreDerriere(contexte){
 }
 
 function tracerTheodoreGauche(contexte){
-    contexte.clearRect(posXT+50,posYT-50,200, 200);
+
 console.log("AAAA");
           //fill blanc derriere
           contexte.fillStyle= "white";
@@ -528,7 +530,6 @@ console.log("AAAA");
 
 
 function tracerCannes(contexte){
-    contexte.clearRect(0,0,canevas.width, canevas.height);
 // canne
       // patte
       contexte.fillStyle= "tan";
@@ -615,7 +616,7 @@ contexte.fill();
 }
 
 function tracerPabloFace(contexte){
-    contexte.clearRect(posXP-50,posYP-50,200, 200);
+
 //fond blanc
 contexte.fillStyle= "white";
 contexte.lineWidth=3;
@@ -725,7 +726,7 @@ contexte.fill();
 }
 
 function tracerPabloDerriere(contexte){
-    contexte.clearRect(posXP-50,posYP+50,200, 200);
+
     // corps derriere
     contexte.fillStyle= "black";
     contexte.lineWidth=3;
@@ -749,7 +750,7 @@ function tracerPabloDerriere(contexte){
 }
 
 function tracerPabloDroite(contexte){
-    contexte.clearRect(posXP-50,posYP-50,200, 200);
+
     //fill blanc profil droite
     contexte.fillStyle= "white";
     contexte.lineWidth=3;
@@ -816,7 +817,7 @@ function tracerPabloDroite(contexte){
 }
 
 function tracerPabloGauche(contexte){
-    contexte.clearRect(posXP+50,posYP-50,200, 200);
+
      //fill blanc profil gauche
     contexte.fillStyle= "white";
     contexte.lineWidth=3;
