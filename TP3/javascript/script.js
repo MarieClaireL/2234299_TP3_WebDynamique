@@ -1,25 +1,24 @@
-
-
-
-
-
 let posXT;
 let posYT;
 let posXP;
 let posYP;
+let posXC =[];
+let posYC=[];
 let debut=0;
 const DIMENSION_CARRET = 50;
 const DEPLACEMENT_CARRET = 5;
 const DIMENSION_CARREP = 50;
 const DEPLACEMENT_CARREP = 5;
+const HAUTEUR_CANNES = 40;
+const LARGEUR_CANNES = 30;
 let canevas;
 let contexte;
 let grille;
 let compteurTuiles = 0;
 let directionT=0;
 let directionP=0;
-
-let cannes;
+let indiceCannes;
+let cannes =[];
 
 
 
@@ -58,32 +57,24 @@ window.onload = function(){
     posXP= 900;
     posYP= 400;
     tracerPabloGauche(contexte);
-     construireTableau(); 
     
 
 }
 
-function construireTableau(){
 
-    cannes= new Array(tracerCannes());
-    console.log(cannes);
-   
-   }
-
-function collision(C,D,E,F){
-    if (C.x >= F.x || E.x >= D.x){
-        console.log("???");
+function collision(A,B,C,D,E,F){
+    for (let i = 0; i < 15; i++)
+    {
+        if (A.x >= D.x || C.x >= B.x){
         return false;
-
-    }
-        if (C.y >= F.y || E.y >= D.y) {
-            console.log("!!!!");
+        }
+        if (A.y >= D.y || C.y >= B.y) {
         return false;
+        }
         
-    }
         return true;
         
-        
+    } 
 }
 
 //musique
@@ -93,10 +84,19 @@ function Musique(){
     musiqueAudio.play();
     tracerTheodoreGauche(contexte);
     tracerPabloGauche(contexte);
-    window.requestAnimationFrame(boucleJeu);
-      
-      
     
+      
+    indice=5;
+    for (let i = 0; i < 15; i++) {
+        posXC[i]=Math.floor(Math.random() * (700 - 0 + 1) + 0);
+      posYC[i]=Math.floor(Math.random() * (700 - 0 + 1) + 0);
+
+      cannes.push({x: posXC[i], y: posYC[i]});
+      }
+   
+    window.requestAnimationFrame(boucleJeu); 
+    // tracerCannes(contexte);
+    console.log(posXC);
 }
 
 function boucleJeu(timeStamp){
@@ -104,59 +104,64 @@ function boucleJeu(timeStamp){
 
     calculerPosition();
     afficherGrille();
-    
+    tracerCannes(contexte);
     tracerTheodoreGauche(contexte);
     tracerPabloGauche(contexte);
-    tracerCannes(contexte);
-
+   
 
 
     if(directionT==1){
-        console.log("Derriere");
+        //console.log("Derriere");
         tracerTheodoreDerriere(contexte); 
     }
     if(directionT==2){
-        console.log("Droite");
+       // console.log("Droite");
         tracerTheodoreDroite(contexte);
     }
     if(directionT==3){
-        console.log("Face");
+       // console.log("Face");
         tracerTheodoreFace(contexte);
     }
     if(directionT==4){
-        console.log("Gauche");
+       // console.log("Gauche");
         tracerTheodoreGauche(contexte);
     }
 
 
 
     if(directionP==1){
-        console.log("Derriere");
+       // console.log("Derriere");
         tracerPabloDerriere(contexte);
     }
     if(directionP==2){
-        console.log("Droite");
+       // console.log("Droite");
         tracerPabloDroite(contexte);
     }
     if(directionP==3){
-        console.log("Face");
+       // console.log("Face");
         tracerPabloFace(contexte);
     }
     if(directionP==4){
-        console.log("Gauche");
+        //console.log("Gauche");
         tracerPabloGauche(contexte);
     }
 
-
+    for (let i = 0; i < 15; i++){
+        A={x: posXC[i], y: posYC[i]};
+    B= {x: posXC[i]+LARGEUR_CANNES, y: posYC[i]+HAUTEUR_CANNES};
+    }
     
     C={x: posXP, y: posYP};
     D= {x: posXP+DIMENSION_CARREP, y: posYP+DIMENSION_CARREP};
     E= {x: posXT, y: posYT};
     F= {x: posXT+DIMENSION_CARRET, y: posYT+DIMENSION_CARRET}; 
-    if( collision(C,D,E,F)){
+    if( collision(A,B,C,D,E,F)){
 
         console.log("COLLISION");
-
+        for (let i = 0; i < 15; i++){
+            cannes.splice([i], 1); 
+        }
+       
     }
    
     
@@ -607,89 +612,95 @@ function tracerTheodoreGauche(contexte){
 
 function tracerCannes(contexte){
 // canne
+
+//console.log("cannes!");
       // patte
-      contexte.fillStyle= "white";
+      for (let i = 0; i < 15; i++){
+
+      
+        contexte.fillStyle= "white";
       contexte.lineWidth=3;
       contexte.beginPath();
-      contexte.moveTo(10, 10);
-      contexte.lineTo(40, 10);
-      contexte.lineTo(40, 50);
-      contexte.lineTo(10, 50);
+      contexte.moveTo(posXC[i], posYC[i]);
+      contexte.lineTo(posXC[i]+30, posYC[i]);
+      contexte.lineTo(posXC[i]+30, posYC[i]+40);
+      contexte.lineTo(posXC[i], posYC[i]+40);
       contexte.fill();
+      
+      
 
       // patte
       contexte.fillStyle= "white";
       contexte.lineWidth=3;
       contexte.beginPath();
-      contexte.moveTo(10, 10);
-      contexte.lineTo(20, 10);
-      contexte.lineTo(20, 20);
-      contexte.lineTo(10, 20);
+      contexte.moveTo(posXC[i], posYC[i]);
+      contexte.lineTo(posXC[i]+10, posYC[i]);
+      contexte.lineTo(posXC[i]+10, posYC[i]+10);
+      contexte.lineTo(posXC[i], posYC[i]+10);
       contexte.fill();
 
       // patte
       contexte.fillStyle= "red";
       contexte.lineWidth=3;
       contexte.beginPath();
-      contexte.moveTo(10, 20);
-      contexte.lineTo(20, 20);
-      contexte.lineTo(20, 30);
-      contexte.lineTo(10, 30);
+      contexte.moveTo(posXC[i], posYC[i]+10);
+      contexte.lineTo(posXC[i]+10, posYC[i]+10);
+      contexte.lineTo(posXC[i]+10, posYC[i]+20);
+      contexte.lineTo(posXC[i], posYC[i]+20);
       contexte.fill();
 
       // patte
       contexte.fillStyle= "white";
       contexte.lineWidth=3;
       contexte.beginPath();
-      contexte.moveTo(10, 30);
-      contexte.lineTo(20, 30);
-      contexte.lineTo(20, 40);
-      contexte.lineTo(10, 40);
+      contexte.moveTo(posXC[i], posYC[i]+20);
+      contexte.lineTo(posXC[i]+10, posYC[i]+20);
+      contexte.lineTo(posXC[i]+10, posYC[i]+30);
+      contexte.lineTo(posXC[i], posYC[i]+30);
       contexte.fill();
 
       // patte
       contexte.fillStyle= "red";
       contexte.lineWidth=3;
       contexte.beginPath();
-      contexte.moveTo(10, 40);
-      contexte.lineTo(20, 40);
-      contexte.lineTo(20, 50);
-      contexte.lineTo(10, 50);
+      contexte.moveTo(posXC[i], posYC[i]+30);
+      contexte.lineTo(posXC[i]+10, posYC[i]+30);
+      contexte.lineTo(posXC[i]+10, posYC[i]+40);
+      contexte.lineTo(posXC[i], posYC[i]+40);
       contexte.fill();
 
 // patte
 contexte.fillStyle= "red";
 contexte.lineWidth=3;
 contexte.beginPath();
-contexte.moveTo(20, 10);
-contexte.lineTo(30, 10);
-contexte.lineTo(30, 20);
-contexte.lineTo(20, 20);
+contexte.moveTo(posXC[i]+10, posYC[i]);
+contexte.lineTo(posXC[i]+20, posYC[i]);
+contexte.lineTo(posXC[i]+20, posYC[i]+10);
+contexte.lineTo(posXC[i]+10, posYC[i]+10);
 contexte.fill();
 
 // patte
 contexte.fillStyle= "white";
 contexte.lineWidth=3;
 contexte.beginPath();
-contexte.moveTo(30, 10);
-contexte.lineTo(40, 10);
-contexte.lineTo(40, 20);
-contexte.lineTo(30, 20);
+contexte.moveTo(posXC[i]+20, posYC[i]);
+contexte.lineTo(posXC[i]+30, posYC[i]);
+contexte.lineTo(posXC[i]+30, posYC[i]+10);
+contexte.lineTo(posXC[i]+20, posYC[i]+10);
 contexte.fill();
 
 // patte
 contexte.fillStyle= "red";
 contexte.lineWidth=3;
 contexte.beginPath();
-contexte.moveTo(30, 20);
-contexte.lineTo(40, 20);
-contexte.lineTo(40, 30);
-contexte.lineTo(30, 30);
+contexte.moveTo(posXC[i]+20, posYC[i]+10);
+contexte.lineTo(posXC[i]+30, posYC[i]+10);
+contexte.lineTo(posXC[i]+30, posYC[i]+20);
+contexte.lineTo(posXC[i]+20, posYC[i]+20);
 contexte.fill();
-
-
-
 }
+}
+
 
 function tracerPabloFace(contexte){
 
