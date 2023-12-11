@@ -23,6 +23,9 @@ let etat = [];
 let ptP=0;
 let ptT=0;
 let total=0;
+let joueurGauche=0;
+let joueurDroite=0;
+musique=1;
 const once = fn => ((ran = false) => () => ran ? fn : (ran = !ran, fn = fn()))();
 const ouvrir = once(() => augmenterPoints());
 const ouvrir1 = once(() => augmenterPoints());
@@ -69,11 +72,12 @@ let touches = {
     "w":false,
     "d":false,
     "s":false,
-    "a":false
+    "a":false,
+    "1":false,
+    "2":false
     
 };
 window.onload = function(){
-    
     window.addEventListener("keydown", toucheAppuyee);
     window.addEventListener("keyup", toucheRelachee);
     canevas=document.getElementById('monCanevas');
@@ -86,14 +90,12 @@ window.onload = function(){
     posYP= (canevas.height/2)- (DIMENSION_CARREP/2);
     construireGrille();
     afficherGrille();
-
     posXT= 1300;
     posYT= 400;
     tracerTheodoreGauche(contexte);
     posXP= 900;
     posYP= 400;
     tracerPabloGauche(contexte);
-    
 
 }
 
@@ -391,6 +393,8 @@ function augmenterPoints(){
     console.log("Total "+total);
     if(total==15){
         console.log("Yeahhhh!")
+        let dernier = new Audio('audio/DerniereCanne.mp3');
+        dernier.play();
     }
 }
 
@@ -401,13 +405,16 @@ function augmenterPointsT(){
     console.log("Total"+total);
     if(total==15){
         console.log("Yeahhhh!")
+        let dernier = new Audio('audio/DerniereCanne.mp3');
+        dernier.play();
     }
 }
+
 //musique
 function Musique(){
     let musiqueAudio = new Audio('audio/MusiqueNoel.mp3');
-    musiqueAudio.loop=true;
-    musiqueAudio.play();
+    //musiqueAudio.loop=true;
+    //musiqueAudio.play();
     tracerTheodoreGauche(contexte);
     tracerPabloGauche(contexte);
     cannes.length=14;
@@ -459,8 +466,7 @@ function Musique(){
    
 }
 
-function boucleJeu(timeStamp){
- 
+function boucleJeu(timeStamp, plop){
     calculerPosition();
     afficherGrille();
     tracerCannes(contexte);
@@ -507,6 +513,8 @@ function boucleJeu(timeStamp){
 
 
     
+
+    
    
     
     C={x: posXP, y: posYP};
@@ -514,41 +522,49 @@ function boucleJeu(timeStamp){
     E= {x: posXT, y: posYT};
     F= {x: posXT+DIMENSION_CARRET, y: posYT+DIMENSION_CARRET}; 
     if( collision(A,B,C,D,E,F)){
-
+        
         //console.log("COLLISION");
             cannes.splice(0, 1); 
             etat[0]=1;
             ouvrir();
             A={x:0, y: 0};
-       B= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            B= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collisionT(A,B,C,D,E,F)){
 
-       // console.log("COLLISION");
+        console.log("COLLISION");
        ouvrirT();
             cannes.splice(0, 1); 
             etat[0]=1;
             A={x:0, y: 0};
        B= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+       let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
 
     if( collision1(A1,B1,C,D,E,F)){
 
-       // console.log("COLLISION1");
+        console.log("COLLISION1");
        ouvrir1();
             cannes.splice(1, 1); 
             etat[1]=1;
             A1={x:0, y: 0};
             B1= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision1T(A1,B1,C,D,E,F)){
 
-       // console.log("COLLISION");
+        console.log("COLLISION");
        ouvrir1T();
             cannes.splice(1, 1); 
             etat[1]=1;
             A1={x:0, y: 0};
             B1= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
 
     if( collision2(A2,B2,C,D,E,F)){
@@ -559,70 +575,86 @@ function boucleJeu(timeStamp){
             etat[2]=1;
             A2={x:0, y: 0};
             B2= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision2T(A2,B2,C,D,E,F)){
 
-       // console.log("COLLISION2");
+        console.log("COLLISION2");
        ouvrir2T();
             cannes.splice(2, 1); 
             etat[2]=1;
             A2={x:0, y: 0};
             B2= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     
     if( collision3(A3,B3,C,D,E,F)){
 
-       // console.log("COLLISION3");
+        console.log("COLLISION3");
        ouvrir3();
             cannes.splice(3, 1); 
             etat[3]=1;
             A3={x:0, y: 0};
             B3= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision3T(A3,B3,C,D,E,F)){
 
-       // console.log("COLLISION3");
+        console.log("COLLISION3");
        ouvrir3T();
             cannes.splice(3, 1); 
             etat[3]=1;
             A3={x:0, y: 0};
             B3= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision4(A4,B4,C,D,E,F)){
 
-       // console.log("COLLISION4");
+        console.log("COLLISION4");
        ouvrir4();
             cannes.splice(4, 1); 
             etat[4]=1;
             A4={x:0, y: 0};
             B4= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision4T(A4,B4,C,D,E,F)){
 
-       // console.log("COLLISION4");
+        console.log("COLLISION4");
        ouvrir4T();
             cannes.splice(4, 1); 
             etat[4]=1;
             A4={x:0, y: 0};
             B4= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision5(A5,B5,C,D,E,F)){
 
-      //  console.log("COLLISION5");
+        console.log("COLLISION5");
       ouvrir5();
             cannes.splice(5, 1); 
             etat[5]=1;
             A5={x:0, y: 0};
             B5= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision5T(A5,B5,C,D,E,F)){
 
-      //  console.log("COLLISION5");
+        console.log("COLLISION5");
       ouvrir5T();
             cannes.splice(5, 1); 
             etat[5]=1;
             A5={x:0, y: 0};
             B5= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision6(A6,B6,C,D,E,F)){
 
@@ -630,155 +662,191 @@ function boucleJeu(timeStamp){
         ouvrir6();
             cannes.splice(6, 1); 
             etat[6]=1;
-            A7={x:0, y: 0};
-            B7= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            A6={x:0, y: 0};
+            B6= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision6T(A6,B6,C,D,E,F)){
 
-        //console.log("COLLISION6");
+        console.log("COLLISION6");
         ouvrir6T();
             cannes.splice(6, 1); 
             etat[6]=1;
             A6={x:0, y: 0};
             B6= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision7(A7,B7,C,D,E,F)){
         ouvrir7();
-       // console.log("COLLISION7");
+        console.log("COLLISION7");
         
             cannes.splice(7, 1); 
             etat[7]=1;
             A7={x:0, y: 0};
             B7= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision7T(A7,B7,C,D,E,F)){
 
-       // console.log("COLLISION7");
+        console.log("COLLISION7");
        ouvrir7T();
             cannes.splice(7, 1); 
             etat[7]=1;
             A7={x:0, y: 0};
             B7= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision8(A8,B8,C,D,E,F)){
         ouvrir8();
-     //   console.log("COLLISION8");
+        console.log("COLLISION8");
         
             cannes.splice(8, 1); 
             etat[8]=1;
             A8={x:0, y: 0};
             B8= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision8T(A8,B8,C,D,E,F)){
 
-      //  console.log("COLLISION8");
+        console.log("COLLISION8");
       ouvrir8T();
             cannes.splice(8, 1); 
             etat[8]=1;
             A8={x:0, y: 0};
             B8= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision9(A9,B9,C,D,E,F)){
         ouvrir9();
-       // console.log("COLLISION9");
+        console.log("COLLISION9");
         
             cannes.splice(9, 1); 
             etat[9]=1;
             A9={x:0, y: 0};
             B9= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision9T(A9,B9,C,D,E,F)){
 
-       // console.log("COLLISION9");
+        console.log("COLLISION9");
        ouvrir9T();
             cannes.splice(9, 1); 
             etat[9]=1;
             A9={x:0, y: 0};
             B9= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision10(A10,B10,C,D,E,F)){
         ouvrir10();
-    //    console.log("COLLISION10");
+        console.log("COLLISION10");
         
             cannes.splice(10, 1); 
             etat[10]=1;
             A10={x:0, y: 0};
             B10= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision10T(A10,B10,C,D,E,F)){
 
-        //console.log("COLLISION10");
+        console.log("COLLISION10");
         ouvrir10T();
             cannes.splice(10, 1); 
             etat[10]=1;
             A10={x:0, y: 0};
             B10= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision11(A11,B11,C,D,E,F)){
 
-        //console.log("COLLISION11");
+        console.log("COLLISION11");
         ouvrir11();
             cannes.splice(11, 1); 
             etat[11]=1;
             A11={x:0, y: 0};
             B11= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision11T(A11,B11,C,D,E,F)){
 
-       // console.log("COLLISION11");
+        console.log("COLLISION11");
        ouvrir11T();
             cannes.splice(11, 1); 
             etat[11]=1;
             A11={x:0, y: 0};
             B11= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision12(A12,B12,C,D,E,F)){
-       // console.log("COLLISION12");
+        console.log("COLLISION12");
        ouvrir12();
             cannes.splice(12, 1); 
             etat[12]=1;
             A12={x:0, y: 0};
             B12= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision12T(A12,B12,C,D,E,F)){
-        //console.log("COLLISION12");
+        console.log("COLLISION12");
         ouvrir12T();
             cannes.splice(12, 1); 
             etat[12]=1;
             A12={x:0, y: 0};
             B12= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision13(A13,B13,C,D,E,F)){
         ouvrir13();
-        //console.log("COLLISION13");
+        console.log("COLLISION13");
             cannes.splice(13, 1); 
             etat[13]=1;
             A13={x:0, y: 0};
             B13= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision13T(A13,B13,C,D,E,F)){
-       // console.log("COLLISION13");
+        console.log("COLLISION13");
        ouvrir13T();
             cannes.splice(13, 1); 
             etat[13]=1;
             A13={x:0, y: 0};
             B13= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision14(A14,B14,C,D,E,F)){
         ouvrir14();
-      //  console.log("COLLISION14");
+        console.log("COLLISION14");
             cannes.splice(14, 1); 
             etat[14]=1;
             A14={x:0, y: 0};
             B14= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     if( collision14T(A14,B14,C,D,E,F)){
-       // console.log("COLLISION14");
+        console.log("COLLISION14");
        ouvrir14T();
             cannes.splice(14, 1); 
             etat[14]=1;
             A14={x:0, y: 0};
             B14= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+            let plop = new Audio('audio/Plop.mp4');
+            plop.play();
     }
     window.requestAnimationFrame(boucleJeu);
 }
@@ -799,6 +867,29 @@ function toucheAppuyee(evenement) {
         console.log("a");
         
     }
+    if((evenement.key === "1")){
+        touches[evenement.key]= true; 
+        joueurGauche=1; 
+        console.log("joueur gauche prêt!" + joueurGauche);
+       
+    }
+
+    if((evenement.key === "2")){
+        touches[evenement.key]= true;
+        joueurDroite=1; 
+        console.log("joueur droite prêt!" + joueurDroite);
+        
+    }
+    if(joueurDroite==1 && joueurGauche==1){
+        console.log("lol");
+        Musique();
+        joueurDroite=0;
+        joueurGauche=0;
+    }
+    else{
+        console.log("naurhhh");
+    }
+    
 }
 
 function toucheRelachee(evenement) {
@@ -809,8 +900,6 @@ function toucheRelachee(evenement) {
         touches[evenement.key]= false;
         console.log("b");
     }
-    
-
 
 }
 
@@ -1242,14 +1331,7 @@ function tracerCannes(contexte){
        
            
         
-        contexte.fillStyle= "white";
-      contexte.lineWidth=3;
-      contexte.beginPath();
-      contexte.moveTo(posXC[i], posYC[i]);
-      contexte.lineTo(posXC[i]+30, posYC[i]);
-      contexte.lineTo(posXC[i]+30, posYC[i]+40);
-      contexte.lineTo(posXC[i], posYC[i]+40);
-      contexte.fill();
+
       
       
 
