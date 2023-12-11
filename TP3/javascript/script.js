@@ -19,8 +19,44 @@ let directionT=0;
 let directionP=0;
 let indiceCannes;
 let cannes =[];
+let etat = [];
+let ptP=0;
+let ptT=0;
+let total=0;
+const once = fn => ((ran = false) => () => ran ? fn : (ran = !ran, fn = fn()))();
+const ouvrir = once(() => augmenterPoints());
+const ouvrir1 = once(() => augmenterPoints());
+const ouvrir2 = once(() => augmenterPoints());
+const ouvrir3 = once(() => augmenterPoints());
+const ouvrir4 = once(() => augmenterPoints());
+const ouvrir5 = once(() => augmenterPoints());
+const ouvrir6 = once(() => augmenterPoints());
+const ouvrir7 = once(() => augmenterPoints());
+const ouvrir8 = once(() => augmenterPoints());
+const ouvrir9 = once(() => augmenterPoints());
+const ouvrir10 = once(() => augmenterPoints());
+const ouvrir11 = once(() => augmenterPoints());
+const ouvrir12 = once(() => augmenterPoints());
+const ouvrir13 = once(() => augmenterPoints());
+const ouvrir14 = once(() => augmenterPoints());
+const ouvrir15 = once(() => augmenterPoints());
 
-
+const ouvrirT = once(() => augmenterPointsT());
+const ouvrir1T = once(() => augmenterPointsT());
+const ouvrir2T = once(() => augmenterPointsT());
+const ouvrir3T = once(() => augmenterPointsT());
+const ouvrir4T = once(() => augmenterPointsT());
+const ouvrir5T = once(() => augmenterPointsT());
+const ouvrir6T = once(() => augmenterPointsT());
+const ouvrir7T = once(() => augmenterPointsT());
+const ouvrir8T = once(() => augmenterPointsT());
+const ouvrir9T = once(() => augmenterPointsT());
+const ouvrir10T = once(() => augmenterPointsT());
+const ouvrir11T = once(() => augmenterPointsT());
+const ouvrir12T = once(() => augmenterPointsT());
+const ouvrir13T = once(() => augmenterPointsT());
+const ouvrir14T = once(() => augmenterPointsT());
+const ouvrir15T = once(() => augmenterPointsT());
 
 
 const DIMENSION_TUILE = 64; //en pixels
@@ -63,20 +99,310 @@ window.onload = function(){
 
 
 function collision(A,B,C,D,E,F){
-    for (let i = 0; i < 15; i++)
-    {
         if (A.x >= D.x || C.x >= B.x){
+            
         return false;
         }
         if (A.y >= D.y || C.y >= B.y) {
         return false;
         }
-        
         return true;
         
-    } 
+}
+function collisionT(A,B,C,D,E,F){
+    if (A.x >= F.x || E.x >= B.x){
+    return false;
+    }
+    if (A.y >= F.y || E.y >= B.y) {
+    return false;
+    }
+    return true;
+}
+function collision1(A1,B1,C,D,E,F){
+    if (A1.x >= D.x || C.x >= B1.x){
+    return false;
+    }
+    if (A1.y >= D.y || C.y >= B1.y) {
+    return false;
+    }
+
+    return true;
+}
+function collision1T(A1,B1,C,D,E,F){
+    if (A1.x >= F.x || E.x >= B1.x){
+    return false;
+    }
+    if (A1.y >= F.y || E.y >= B1.y) {
+    return false;
+    }
+    return true;
+}
+function collision2(A2,B2,C,D,E,F){
+    if (A2.x >= D.x || C.x >= B2.x){
+    return false;
+    }
+    if (A2.y >= D.y || C.y >= B2.y) {
+    return false;
+    }
+
+    return true;
+}
+function collision2T(A2,B2,C,D,E,F){
+    if (A2.x >= F.x || E.x >= B2.x){
+    return false;
+    }
+    if (A2.y >= F.y || E.y >= B2.y) {
+    return false;
+    }
+    return true;
+}
+function collision3(A3,B3,C,D,E,F){
+    if (A3.x >= D.x || C.x >= B3.x){
+    return false;
+    }
+    if (A3.y >= D.y || C.y >= B3.y) {
+    return false;
+    }
+
+    return true;
+}
+function collision3T(A3,B3,C,D,E,F){
+    if (A3.x >= F.x || E.x >= B3.x){
+    return false;
+    }
+    if (A3.y >= F.y || E.y >= B3.y) {
+    return false;
+    }
+    return true;
+}
+function collision4(A4,B4,C,D,E,F){
+    if (A4.x >= D.x || C.x >= B4.x){
+    return false;
+    }
+    if (A4.y >= D.y || C.y >= B4.y) {
+    return false;
+    }
+
+    return true;
+}
+function collision4T(A4,B4,C,D,E,F){
+    if (A4.x >= F.x || E.x >= B4.x){
+    return false;
+    }
+    if (A4.y >= F.y || E.y >= B4.y) {
+    return false;
+    }
+    return true;
+}
+function collision5(A5,B5,C,D,E,F){
+    if (A5.x >= D.x || C.x >= B5.x){
+    return false;
+    }
+    if (A5.y >= D.y || C.y >= B5.y) {
+    return false;
+    }
+    return true;
+}
+function collision5T(A5,B5,C,D,E,F){
+    if (A5.x >= F.x || E.x >= B5.x){
+    return false;
+    }
+    if (A5.y >= F.y || E.y >= B5.y) {
+    return false;
+    }
+    return true;
+}
+function collision6(A6,B6,C,D,E,F){
+    if (A6.x >= D.x || C.x >= B6.x){
+    return false;
+    }
+    if (A6.y >= D.y || C.y >= B6.y) {
+    return false;
+    }
+    
+    return true;
+}
+function collision6T(A6,B6,C,D,E,F){
+    if (A6.x >= F.x || E.x >= B6.x){
+    return false;
+    }
+    if (A6.y >= F.y || E.y >= B6.y) {
+    return false;
+    }
+    return true;
+}
+function collision7(A7,B7,C,D,E,F){
+    if (A7.x >= D.x || C.x >= B7.x){
+    return false;
+    }
+    if (A7.y >= D.y || C.y >= B7.y) {
+    return false;
+    }
+    
+    return true;
+}
+function collision7T(A7,B7,C,D,E,F){
+    if (A7.x >= F.x || E.x >= B7.x){
+    return false;
+    }
+    if (A7.y >= F.y || E.y >= B7.y) {
+    return false;
+    }
+    return true;
+}
+function collision8(A8,B8,C,D,E,F){
+    if (A8.x >= D.x || C.x >= B8.x){
+    return false;
+    }
+    if (A8.y >= D.y || C.y >= B8.y) {
+    return false;
+    }
+    
+    return true;
+}
+function collision8T(A8,B8,C,D,E,F){
+    if (A8.x >= F.x || E.x >= B8.x){
+    return false;
+    }
+    if (A8.y >= F.y || E.y >= B8.y) {
+    return false;
+    }
+    return true;
+}
+function collision9(A9,B9,C,D,E,F){
+    if (A9.x >= D.x || C.x >= B9.x){
+    return false;
+    }
+    if (A9.y >= D.y || C.y >= B9.y) {
+    return false;
+    }
+    
+    return true;
+}
+function collision9T(A1,B1,C,D,E,F){
+    if (A9.x >= F.x || E.x >= B9.x){
+    return false;
+    }
+    if (A9.y >= F.y || E.y >= B9.y) {
+    return false;
+    }
+    return true;
+}
+function collision10(A10,B10,C,D,E,F){
+    if (A10.x >= D.x || C.x >= B10.x){
+    return false;
+    }
+    if (A10.y >= D.y || C.y >= B10.y) {
+    return false;
+    }
+    
+    return true;
+}
+function collision10T(A10,B10,C,D,E,F){
+    if (A10.x >= F.x || E.x >= B10.x){
+    return false;
+    }
+    if (A10.y >= F.y || E.y >= B10.y) {
+    return false;
+    }
+    return true;
+}
+function collision11(A11,B11,C,D,E,F){
+    if (A11.x >= D.x || C.x >= B11.x){
+    return false;
+    }
+    if (A11.y >= D.y || C.y >= B11.y) {
+    return false;
+    }
+    
+    return true;
+}
+function collision11T(A11,B11,C,D,E,F){
+    if (A11.x >= F.x || E.x >= B11.x){
+    return false;
+    }
+    if (A11.y >= F.y || E.y >= B11.y) {
+    return false;
+    }
+    return true;
+}
+function collision12(A12,B12,C,D,E,F){
+    if (A12.x >= D.x || C.x >= B12.x){
+    return false;
+    }
+    if (A12.y >= D.y || C.y >= B12.y) {
+    return false;
+    }
+    
+    return true;
+}
+function collision12T(A12,B12,C,D,E,F){
+    if (A12.x >= F.x || E.x >= B12.x){
+    return false;
+    }
+    if (A12.y >= F.y || E.y >= B12.y) {
+    return false;
+    }
+    return true;
+}
+function collision13(A13,B13,C,D,E,F){
+    if (A13.x >= D.x || C.x >= B13.x){
+    return false;
+    }
+    if (A13.y >= D.y || C.y >= B13.y) {
+    return false;
+    }
+    
+    return true;
+}
+function collision13T(A13,B13,C,D,E,F){
+    if (A13.x >= F.x || E.x >= B13.x){
+    return false;
+    }
+    if (A13.y >= F.y || E.y >= B13.y) {
+    return false;
+    }
+    return true;
+}
+function collision14(A14,B14,C,D,E,F){
+    if (A14.x >= D.x || C.x >= B14.x){
+    return false;
+    }
+    if (A14.y >= D.y || C.y >= B14.y) {
+    return false;
+    }
+    
+    return true;
+}
+function collision14T(A14,B14,C,D,E,F){
+    if (A14.x >= F.x || E.x >= B14.x){
+    return false;
+    }
+    if (A14.y >= F.y || E.y >= B14.y) {
+    return false;
+    }
+    return true;
 }
 
+function augmenterPoints(){
+    ptP++;
+    console.log("Points Pablo = "+ ptP);
+    total++;
+    console.log("Total "+total);
+    if(total==15){
+        console.log("Yeahhhh!")
+    }
+}
+
+function augmenterPointsT(){
+    ptT++;
+    console.log("Points Theodore = "+ ptT);
+    total++;
+    console.log("Total"+total);
+    if(total==15){
+        console.log("Yeahhhh!")
+    }
+}
 //musique
 function Musique(){
     let musiqueAudio = new Audio('audio/MusiqueNoel.mp3');
@@ -84,30 +410,63 @@ function Musique(){
     musiqueAudio.play();
     tracerTheodoreGauche(contexte);
     tracerPabloGauche(contexte);
-    
-      
-    indice=5;
-    for (let i = 0; i < 15; i++) {
-        posXC[i]=Math.floor(Math.random() * (700 - 0 + 1) + 0);
-      posYC[i]=Math.floor(Math.random() * (700 - 0 + 1) + 0);
+    cannes.length=14;
 
-      cannes.push({x: posXC[i], y: posYC[i]});
+    indice=5;
+    for (let i = 0; i <= 14; i++) {
+        posXC[i]=Math.floor(Math.random() * (700 - 0 + 1) + 0);
+        posYC[i]=Math.floor(Math.random() * (700 - 0 + 1) + 0);
+        etat[i]=0;
+        cannes.push({x: posXC[i], y: posYC[i]});
+         
       }
+
+        A={x: posXC[0], y: posYC[0]};
+       B= {x: posXC[0]+LARGEUR_CANNES, y: posYC[0]+HAUTEUR_CANNES};
+       A1={x: posXC[1], y: posYC[1]};
+       B1= {x: posXC[1]+LARGEUR_CANNES, y: posYC[1]+HAUTEUR_CANNES};
+       A2={x: posXC[2], y: posYC[2]};
+       B2= {x: posXC[2]+LARGEUR_CANNES, y: posYC[2]+HAUTEUR_CANNES};
+       A3={x: posXC[3], y: posYC[3]};
+       B3= {x: posXC[3]+LARGEUR_CANNES, y: posYC[3]+HAUTEUR_CANNES};
+       A4={x: posXC[4], y: posYC[4]};
+       B4= {x: posXC[4]+LARGEUR_CANNES, y: posYC[4]+HAUTEUR_CANNES};
+       A5={x: posXC[5], y: posYC[5]};
+       B5= {x: posXC[5]+LARGEUR_CANNES, y: posYC[5]+HAUTEUR_CANNES};
+       A6={x: posXC[6], y: posYC[6]};
+       B6= {x: posXC[6]+LARGEUR_CANNES, y: posYC[6]+HAUTEUR_CANNES};
+       A7={x: posXC[7], y: posYC[7]};
+       B7= {x: posXC[7]+LARGEUR_CANNES, y: posYC[7]+HAUTEUR_CANNES};
+       A8={x: posXC[8], y: posYC[8]};
+       B8= {x: posXC[8]+LARGEUR_CANNES, y: posYC[8]+HAUTEUR_CANNES};
+       A9={x: posXC[9], y: posYC[9]};
+       B9= {x: posXC[9]+LARGEUR_CANNES, y: posYC[9]+HAUTEUR_CANNES};
+       A10={x: posXC[10], y: posYC[10]};
+       B10= {x: posXC[10]+LARGEUR_CANNES, y: posYC[10]+HAUTEUR_CANNES};
+       A11={x: posXC[11], y: posYC[11]};
+       B11= {x: posXC[11]+LARGEUR_CANNES, y: posYC[11]+HAUTEUR_CANNES};
+       A12={x: posXC[12], y: posYC[12]};
+       B12= {x: posXC[12]+LARGEUR_CANNES, y: posYC[12]+HAUTEUR_CANNES};
+       A13={x: posXC[13], y: posYC[13]};
+       B13= {x: posXC[13]+LARGEUR_CANNES, y: posYC[13]+HAUTEUR_CANNES};
+       A14={x: posXC[14], y: posYC[14]};
+       B14= {x: posXC[14]+LARGEUR_CANNES, y: posYC[14]+HAUTEUR_CANNES};
+
+   
    
     window.requestAnimationFrame(boucleJeu); 
     // tracerCannes(contexte);
-    console.log(posXC);
+   
 }
 
 function boucleJeu(timeStamp){
  
-
     calculerPosition();
     afficherGrille();
     tracerCannes(contexte);
     tracerTheodoreGauche(contexte);
     tracerPabloGauche(contexte);
-   
+
 
 
     if(directionT==1){
@@ -146,10 +505,9 @@ function boucleJeu(timeStamp){
         tracerPabloGauche(contexte);
     }
 
-    for (let i = 0; i < 15; i++){
-        A={x: posXC[i], y: posYC[i]};
-    B= {x: posXC[i]+LARGEUR_CANNES, y: posYC[i]+HAUTEUR_CANNES};
-    }
+
+    
+   
     
     C={x: posXP, y: posYP};
     D= {x: posXP+DIMENSION_CARREP, y: posYP+DIMENSION_CARREP};
@@ -157,17 +515,279 @@ function boucleJeu(timeStamp){
     F= {x: posXT+DIMENSION_CARRET, y: posYT+DIMENSION_CARRET}; 
     if( collision(A,B,C,D,E,F)){
 
-        console.log("COLLISION");
-        for (let i = 0; i < 15; i++){
-            cannes.splice([i], 1); 
-        }
-       
+        //console.log("COLLISION");
+            cannes.splice(0, 1); 
+            etat[0]=1;
+            ouvrir();
+            A={x:0, y: 0};
+       B= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
     }
-   
+    if( collisionT(A,B,C,D,E,F)){
+
+       // console.log("COLLISION");
+       ouvrirT();
+            cannes.splice(0, 1); 
+            etat[0]=1;
+            A={x:0, y: 0};
+       B= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+
+    if( collision1(A1,B1,C,D,E,F)){
+
+       // console.log("COLLISION1");
+       ouvrir1();
+            cannes.splice(1, 1); 
+            etat[1]=1;
+            A1={x:0, y: 0};
+            B1= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision1T(A1,B1,C,D,E,F)){
+
+       // console.log("COLLISION");
+       ouvrir1T();
+            cannes.splice(1, 1); 
+            etat[1]=1;
+            A1={x:0, y: 0};
+            B1= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+
+    if( collision2(A2,B2,C,D,E,F)){
+
+       // console.log("COLLISION2");
+       ouvrir2();
+            cannes.splice(2, 1); 
+            etat[2]=1;
+            A2={x:0, y: 0};
+            B2= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision2T(A2,B2,C,D,E,F)){
+
+       // console.log("COLLISION2");
+       ouvrir2T();
+            cannes.splice(2, 1); 
+            etat[2]=1;
+            A2={x:0, y: 0};
+            B2= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
     
-    
+    if( collision3(A3,B3,C,D,E,F)){
+
+       // console.log("COLLISION3");
+       ouvrir3();
+            cannes.splice(3, 1); 
+            etat[3]=1;
+            A3={x:0, y: 0};
+            B3= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision3T(A3,B3,C,D,E,F)){
+
+       // console.log("COLLISION3");
+       ouvrir3T();
+            cannes.splice(3, 1); 
+            etat[3]=1;
+            A3={x:0, y: 0};
+            B3= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision4(A4,B4,C,D,E,F)){
+
+       // console.log("COLLISION4");
+       ouvrir4();
+            cannes.splice(4, 1); 
+            etat[4]=1;
+            A4={x:0, y: 0};
+            B4= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision4T(A4,B4,C,D,E,F)){
+
+       // console.log("COLLISION4");
+       ouvrir4T();
+            cannes.splice(4, 1); 
+            etat[4]=1;
+            A4={x:0, y: 0};
+            B4= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision5(A5,B5,C,D,E,F)){
+
+      //  console.log("COLLISION5");
+      ouvrir5();
+            cannes.splice(5, 1); 
+            etat[5]=1;
+            A5={x:0, y: 0};
+            B5= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision5T(A5,B5,C,D,E,F)){
+
+      //  console.log("COLLISION5");
+      ouvrir5T();
+            cannes.splice(5, 1); 
+            etat[5]=1;
+            A5={x:0, y: 0};
+            B5= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision6(A6,B6,C,D,E,F)){
+
+        //console.log("COLLISION6");
+        ouvrir6();
+            cannes.splice(6, 1); 
+            etat[6]=1;
+            A7={x:0, y: 0};
+            B7= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision6T(A6,B6,C,D,E,F)){
+
+        //console.log("COLLISION6");
+        ouvrir6T();
+            cannes.splice(6, 1); 
+            etat[6]=1;
+            A6={x:0, y: 0};
+            B6= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision7(A7,B7,C,D,E,F)){
+        ouvrir7();
+       // console.log("COLLISION7");
+        
+            cannes.splice(7, 1); 
+            etat[7]=1;
+            A7={x:0, y: 0};
+            B7= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision7T(A7,B7,C,D,E,F)){
+
+       // console.log("COLLISION7");
+       ouvrir7T();
+            cannes.splice(7, 1); 
+            etat[7]=1;
+            A7={x:0, y: 0};
+            B7= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision8(A8,B8,C,D,E,F)){
+        ouvrir8();
+     //   console.log("COLLISION8");
+        
+            cannes.splice(8, 1); 
+            etat[8]=1;
+            A8={x:0, y: 0};
+            B8= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision8T(A8,B8,C,D,E,F)){
+
+      //  console.log("COLLISION8");
+      ouvrir8T();
+            cannes.splice(8, 1); 
+            etat[8]=1;
+            A8={x:0, y: 0};
+            B8= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision9(A9,B9,C,D,E,F)){
+        ouvrir9();
+       // console.log("COLLISION9");
+        
+            cannes.splice(9, 1); 
+            etat[9]=1;
+            A9={x:0, y: 0};
+            B9= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision9T(A9,B9,C,D,E,F)){
+
+       // console.log("COLLISION9");
+       ouvrir9T();
+            cannes.splice(9, 1); 
+            etat[9]=1;
+            A9={x:0, y: 0};
+            B9= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision10(A10,B10,C,D,E,F)){
+        ouvrir10();
+    //    console.log("COLLISION10");
+        
+            cannes.splice(10, 1); 
+            etat[10]=1;
+            A10={x:0, y: 0};
+            B10= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision10T(A10,B10,C,D,E,F)){
+
+        //console.log("COLLISION10");
+        ouvrir10T();
+            cannes.splice(10, 1); 
+            etat[10]=1;
+            A10={x:0, y: 0};
+            B10= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision11(A11,B11,C,D,E,F)){
+
+        //console.log("COLLISION11");
+        ouvrir11();
+            cannes.splice(11, 1); 
+            etat[11]=1;
+            A11={x:0, y: 0};
+            B11= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision11T(A11,B11,C,D,E,F)){
+
+       // console.log("COLLISION11");
+       ouvrir11T();
+            cannes.splice(11, 1); 
+            etat[11]=1;
+            A11={x:0, y: 0};
+            B11= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision12(A12,B12,C,D,E,F)){
+       // console.log("COLLISION12");
+       ouvrir12();
+            cannes.splice(12, 1); 
+            etat[12]=1;
+            A12={x:0, y: 0};
+            B12= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision12T(A12,B12,C,D,E,F)){
+        //console.log("COLLISION12");
+        ouvrir12T();
+            cannes.splice(12, 1); 
+            etat[12]=1;
+            A12={x:0, y: 0};
+            B12= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision13(A13,B13,C,D,E,F)){
+        ouvrir13();
+        //console.log("COLLISION13");
+            cannes.splice(13, 1); 
+            etat[13]=1;
+            A13={x:0, y: 0};
+            B13= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision13T(A13,B13,C,D,E,F)){
+       // console.log("COLLISION13");
+       ouvrir13T();
+            cannes.splice(13, 1); 
+            etat[13]=1;
+            A13={x:0, y: 0};
+            B13= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision14(A14,B14,C,D,E,F)){
+        ouvrir14();
+      //  console.log("COLLISION14");
+            cannes.splice(14, 1); 
+            etat[14]=1;
+            A14={x:0, y: 0};
+            B14= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
+    if( collision14T(A14,B14,C,D,E,F)){
+       // console.log("COLLISION14");
+       ouvrir14T();
+            cannes.splice(14, 1); 
+            etat[14]=1;
+            A14={x:0, y: 0};
+            B14= {x: 0-LARGEUR_CANNES, y: 0-HAUTEUR_CANNES};
+    }
     window.requestAnimationFrame(boucleJeu);
-    
+}
+function son(){
+    cannes[cannes.length - 1]
+    console.log(cannes.length-1)
+    for (let i = 0; i <= cannes.length-1; i++){
+console.log("AAAAAA");
+    }
 }
 
 function toucheAppuyee(evenement) {
@@ -615,9 +1235,13 @@ function tracerCannes(contexte){
 
 //console.log("cannes!");
       // patte
-      for (let i = 0; i < 15; i++){
+      for (let i = 0; i <= 14; i++){
 
-      
+       if(etat[i]==0){
+
+       
+           
+        
         contexte.fillStyle= "white";
       contexte.lineWidth=3;
       contexte.beginPath();
@@ -697,9 +1321,12 @@ contexte.moveTo(posXC[i]+20, posYC[i]+10);
 contexte.lineTo(posXC[i]+30, posYC[i]+10);
 contexte.lineTo(posXC[i]+30, posYC[i]+20);
 contexte.lineTo(posXC[i]+20, posYC[i]+20);
-contexte.fill();
+contexte.fill();}
+else{}
 }
+
 }
+
 
 
 function tracerPabloFace(contexte){
