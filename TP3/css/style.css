@@ -6,3 +6,30 @@ html, body {
 #canevas {
     display: block;
 }
+
+#message {
+    position: fixed;
+    font-family: "Titan One";
+    font-size: 30px;
+    color: black;
+    top: 35%;
+    left: 30%;
+}
+
+#scorePablo {
+    position: fixed;
+    font-family: "Titan One";
+    font-size: 50px;
+    color: orange;
+    top: 5%;
+    left: 5%;
+}
+
+#scoreTheodore {
+    position: fixed;
+    font-family: "Titan One";
+    font-size: 50px;
+    color: tan;
+    top: 5%;
+    right: 5%;
+}
